@@ -36,11 +36,11 @@ const AttributesGrid = ({ attributes, onAttributesChange }) => {
 
   const handleDotClick = (category, attr, value) => {
     setLocalAttributes((prev) => ({
-      ...prev,
-      [category]: {
-        ...prev[category],
-        [attr]: value,
-      },
+    ...prev,
+    [category]: {
+      ...prev[category],
+      [attr]: value === prev[category][attr] ? value - 1 : value,
+    },
     }));
   };
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CharacterInfo from './components/CharacterInfo';
 import AttributesGrid from './components/AttributesGrid';
 import SkillsTable from './components/SkillsTable';
+import HealthTracker from './components/HealthTracker';
 
 function App() {
   const [skills, setSkills] = useState({
@@ -19,20 +20,40 @@ function App() {
     mental: { intelligence: 3, wits: 2, resolve: 2 },
   });
 
+  const maxHealth = attributes.physical.stamina + 3;
+  const maxWillpower = attributes.social.composure + attributes.mental.resolve;
+
+
   return (
-    <div className="min-h-screen bg-gray-950 p-6">
-      <CharacterInfo
-        name="Lena Markov"
-        concept="Haunted Artist"
-        predator="Sandman"
-        chronicle="LA by Night"
-        ambition="Immortalize her art"
-        clan="Toreador"
-        sire="Alexei"
-        desire="Emotional connection"
-        generation={12}
+    <div className="min-h-screen w-screen bg-gray-950 px-6 py-8">
+      <div className="flex flex-col lg:flex-row gap-6 w-full">
+        <div className="flex-1 w-full">
+          <CharacterInfo
+            name="Lena Markov"
+            concept="Haunted Artist"
+            predator="Sandman"
+            chronicle="LA by Night"
+            ambition="Immortalize her art"
+            clan="Toreador"
+            sire="Alexei"
+            desire="Emotional connection"
+            generation={12}
+          />
+          
+        
+          <HealthTracker
+            maxHealth={maxHealth}
+            maxWillpower={maxWillpower}
+            
+          />
+          
+        </div>
+      </div>
+
+      <AttributesGrid
+        attributes={attributes}
+        onAttributesChange={setAttributes}
       />
-      <AttributesGrid attributes={attributes} onAttributesChange={setAttributes}/>
       <SkillsTable
         skills={skills}
         attributes={attributes}

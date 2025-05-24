@@ -25,9 +25,9 @@ const SkillsTable = ({ skills, attributes, onSkillsChange }) => {
 
   const handleDotClick = (skillName, value) => {
     if (!editMode) return;
-    setLocalSkills((prev) => ({
-      ...prev,
-      [skillName]: value,
+        setLocalSkills((prev) => ({
+        ...prev,
+        [skillName]: value === prev[skillName] ? value - 1 : value,
     }));
   };
 
