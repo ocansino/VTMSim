@@ -84,6 +84,33 @@ const HumanityRow = ({ values, onBoxClick, editMode, statusLabel }) => (
   </div>
 );
 
+const BloodPotencyRow = ({ values, onBoxClick, editMode, statusLabel, onRouseCheck }) => (
+  <div className="mb-4">
+    <p className="font-semibold mb-1">Blood Potency: {statusLabel}</p>
+    <div className="flex space-x-1">
+      {values.map((active, i) => (
+        <div
+          key={i}
+          onClick={() => editMode && onBoxClick(i)}
+          className={`w-5 h-5 rounded border cursor-pointer ${
+            active ? 'bg-pink-500 border-pink-500' : 'bg-gray-700 border-gray-500'
+          } ${editMode ? 'hover:ring ring-opacity-50' : ''}`}
+        />
+      ))}
+    </div>
+    {!editMode && (
+    <div className="mt-4">
+    <button
+      onClick={onRouseCheck}
+      className="text-sm bg-pink-600 hover:bg-pink-700 px-4 py-2 rounded shadow"
+    >
+      Rouse Check
+    </button>
+    </div>
+    )}
+  </div>
+);
+
 const HealthTracker = ({ maxHealth, maxWillpower }) => {
   const [editMode, setEditMode] = useState(false);
   const [health, setHealth] = useState(() => Array(maxHealth).fill(0));
@@ -94,6 +121,10 @@ const HealthTracker = ({ maxHealth, maxWillpower }) => {
   const [humanity, setHumanity] = useState(() => {
     return Array.from({ length: 10 }, (_, i) => (i < humanityScore ? 1 : 0));
   });
+
+  const [bloodPotency, setBloodPotency] = useState(() =>
+    Array.from({ length: 10 }, (_, i) => (i < 1 ? 1 : 0)) // Default to Potency 1
+  );
 
   useEffect(() => {
     setHealth((prev) => {
@@ -173,6 +204,25 @@ const HealthTracker = ({ maxHealth, maxWillpower }) => {
     return 'Wight';
   };
 
+  const toggleBloodPotency = (index) => {
+  setBloodPotency((prev) => {
+    const updated = [...prev];
+    const newLevel = updated[index] === 1 ? index : index + 1;
+    return updated.map((_, i) => (i < newLevel ? 1 : 0));
+  });
+  };
+
+  const getBloodPotencyStatus = () => {
+  const level = bloodPotency.filter((b) => b === 1).length;
+  return `Potency ${level}`;
+  };
+
+  const handleRouseCheck = () => {
+    const roll = Math.ceil(Math.random() * 10);
+    const success = roll >= 6;
+    alert(`Rouse Check: Rolled a ${roll} → ${success ? 'Success ✅' : 'Failure ❌ (Gain 1 Hunger)'}`);
+  };
+
   return (
     <div className="bg-gray-800 text-white p-4 rounded shadow-md w-full h-fit">
       <div className="flex justify-between items-center mb-4">
@@ -187,7 +237,7 @@ const HealthTracker = ({ maxHealth, maxWillpower }) => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-7 gap-4">
         <TrackerRow
           label="Health"
           boxes={maxHealth}
@@ -217,6 +267,15 @@ const HealthTracker = ({ maxHealth, maxWillpower }) => {
           onBoxClick={cycleHumanityState}
           statusLabel={getHumanityStatus()}
         />
+        
+        <BloodPotencyRow
+          values={bloodPotency}
+          editMode={editMode}
+          onBoxClick={toggleBloodPotency}
+          statusLabel={getBloodPotencyStatus()}
+          onRouseCheck={handleRouseCheck}
+        />
+        
       </div>
     </div>
   );

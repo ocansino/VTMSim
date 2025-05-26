@@ -3,8 +3,25 @@ import CharacterInfo from './components/CharacterInfo';
 import AttributesGrid from './components/AttributesGrid';
 import SkillsTable from './components/SkillsTable';
 import HealthTracker from './components/HealthTracker';
+import DisciplinesPanel from './components/DisciplinesPanel';
+import MeritsPanel from './components/MeritsPanel';
+import ProfilePanel from './components/ProfilePanel';
 
 function App() {
+  const [activeTab, setActiveTab] = useState('skills');
+  const [disciplines, setDisciplines] = useState([
+  {
+    name: 'Auspex',
+    level: 3,
+    powers: ['Heightened Senses', 'Sense the Unseen', 'Scry the Soul'],
+  },
+  {
+    name: 'Celerity',
+    level: 2,
+    powers: ['Cat’s Grace', 'Rapid Reflexes'],
+  },
+  ]);
+
   const [skills, setSkills] = useState({
     athletics: 1, brawl: 2, craft: 0, drive: 0, firearms: 1,
     larceny: 0, melee: 1, stealth: 0, survival: 0,
@@ -19,6 +36,14 @@ function App() {
     social: { charisma: 4, manipulation: 2, composure: 3 },
     mental: { intelligence: 3, wits: 2, resolve: 2 },
   });
+
+  const [merits, setMerits] = useState([
+    { name: 'Iron Will', level: 2, descriptors: ['Resist Dominate', 'Resist Frenzy'] },
+  ]);
+
+  const [profileText, setProfileText] = useState(
+    "Describe your character's backstory, appearance, or motivations here..."
+  );
 
   const maxHealth = attributes.physical.stamina + 3;
   const maxWillpower = attributes.social.composure + attributes.mental.resolve;
@@ -54,11 +79,47 @@ function App() {
         attributes={attributes}
         onAttributesChange={setAttributes}
       />
-      <SkillsTable
-        skills={skills}
-        attributes={attributes}
-        onSkillsChange={setSkills}
-      />
+      <div className="mt-6">
+  
+      <div className="flex space-x-4 border-b border-gray-700 mb-4">
+        {['skills', 'disciplines', 'merits', 'profile'].map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`px-4 py-2 font-semibold uppercase tracking-wide text-sm border-b-2 transition-colors ${
+              activeTab === tab
+                ? 'border-yellow-500 text-yellow-400'
+                : 'border-transparent text-gray-400 hover:text-yellow-300'
+            }`}
+          >
+            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+          </button>
+        ))}
+      </div>
+
+    {activeTab === 'skills' && (
+    <SkillsTable
+      skills={skills}
+      attributes={attributes}
+      onSkillsChange={setSkills}
+    />
+    )}
+
+    {activeTab === 'disciplines' && (
+      <DisciplinesPanel disciplines={disciplines} />
+    )}
+
+    {activeTab === 'merits' && (
+      <MeritsPanel merits={merits} setMerits={setMerits} />
+    )}
+
+    {activeTab === 'profile' && (
+      <ProfilePanel profileText={profileText} setProfileText={setProfileText} />
+    )}
+
+
+    </div>
+
     </div>
   );
 }
