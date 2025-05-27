@@ -9,6 +9,7 @@ import MeritsPanel from './components/MeritsPanel';
 import ProfilePanel from './components/ProfilePanel';
 import InventoryPanel from './components/InventoryPanel';
 import ActionPanel from './components/ActionPanel';
+import NotesPanel from './components/NotesPanel';
 
 function App() {
   const [activeTab, setActiveTab] = useState('skills');
@@ -21,6 +22,7 @@ function App() {
       merits,
       profileText,
       inventoryText, // added
+      notesText,
       health,
       willpower,
       hunger,
@@ -55,6 +57,7 @@ function App() {
         if (data.merits) setMerits(data.merits);
         if (data.profileText) setProfileText(data.profileText);
         if (data.inventoryText) setInventoryText(data.inventoryText);
+        if (data.notesText) setNotesText(data.notesText);
         if (Array.isArray(data.health)) setHealth(data.health);
         if (Array.isArray(data.willpower)) setWillpower(data.willpower);
         if (typeof data.hunger === 'number') setHunger(data.hunger);
@@ -123,7 +126,7 @@ function App() {
     desire: 'Emotional connection',
     generation: 12
   });
-
+  const [notesText, setNotesText] = useState('');
   const [health, setHealth] = useState([]);
   const [willpower, setWillpower] = useState([]);
   const [hunger, setHunger] = useState(0);
@@ -184,7 +187,7 @@ function App() {
       <div className="mt-6">
   
       <div className="flex space-x-4 border-b border-gray-700 mb-4">
-        {['skills', 'disciplines', 'merits', 'profile', 'inventory', 'actions'].map((tab) => (
+        {['skills', 'disciplines', 'merits', 'profile', 'inventory', 'actions', 'notes'].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -231,6 +234,10 @@ function App() {
 
     {activeTab === 'actions' && (
       <ActionPanel attributes={attributes} skills={skills} bloodPotency={bloodPotency} />
+    )}
+
+    {activeTab === 'notes' && (
+      <NotesPanel notesText={notesText} setNotesText={setNotesText} />
     )}
 
     </div>
