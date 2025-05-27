@@ -13,7 +13,9 @@ const AttributeBlock = ({ category, attributes, editMode, onDotClick }) => (
               key={i}
               onClick={() => editMode && onDotClick(category, attr, i)}
               className={`w-4 h-4 rounded-full border cursor-pointer ${
-                i <= value ? 'bg-red-600 border-red-600' : 'bg-gray-700 border-gray-500'
+                i <= value
+                  ? 'bg-red-600 border-red-600'
+                  : 'bg-gray-700 border-gray-500'
               } ${editMode ? 'hover:ring ring-red-300' : ''}`}
             />
           ))}
@@ -25,23 +27,20 @@ const AttributeBlock = ({ category, attributes, editMode, onDotClick }) => (
 
 const AttributesGrid = ({ attributes, onAttributesChange }) => {
   const [editMode, setEditMode] = useState(false);
-  const [localAttributes, setLocalAttributes] = useState({ ...attributes });
 
   const toggleEdit = () => {
-    if (editMode && onAttributesChange) {
-      onAttributesChange(localAttributes);
-    }
     setEditMode(!editMode);
   };
 
   const handleDotClick = (category, attr, value) => {
-    setLocalAttributes((prev) => ({
-    ...prev,
-    [category]: {
-      ...prev[category],
-      [attr]: value === prev[category][attr] ? value - 1 : value,
-    },
-    }));
+    const newValue = value === attributes[category][attr] ? value - 1 : value;
+    onAttributesChange({
+      ...attributes,
+      [category]: {
+        ...attributes[category],
+        [attr]: newValue,
+      },
+    });
   };
 
   return (
@@ -59,7 +58,7 @@ const AttributesGrid = ({ attributes, onAttributesChange }) => {
       </div>
 
       <div className="grid md:grid-cols-3 gap-4">
-        {Object.entries(localAttributes).map(([category, values]) => (
+        {Object.entries(attributes).map(([category, values]) => (
           <AttributeBlock
             key={category}
             category={category}

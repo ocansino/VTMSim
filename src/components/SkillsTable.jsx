@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 
 const SkillsTable = ({ skills, attributes, onSkillsChange }) => {
   const [editMode, setEditMode] = useState(false);
-  const [localSkills, setLocalSkills] = useState({ ...skills });
 
   const handleRoll = (skillName, attributeName) => {
-    const diceCount =
-      (attributes?.[attributeName]?.[attributeName] || 0) + (skills?.[skillName] || 0);
+    const attrValue = attributes?.[attributeName]?.[attributeName] || 0;
+    const skillValue = skills?.[skillName] || 0;
+    const diceCount = attrValue + skillValue;
     const rolls = Array.from({ length: diceCount }, () => Math.ceil(Math.random() * 10));
     const successes = rolls.filter((r) => r >= 6).length;
 
@@ -16,18 +16,13 @@ const SkillsTable = ({ skills, attributes, onSkillsChange }) => {
     );
   };
 
-  const toggleEdit = () => {
-    if (editMode && onSkillsChange) {
-      onSkillsChange(localSkills); // save changes
-    }
-    setEditMode(!editMode);
-  };
+  const toggleEdit = () => setEditMode(!editMode);
 
   const handleDotClick = (skillName, value) => {
     if (!editMode) return;
-        setLocalSkills((prev) => ({
-        ...prev,
-        [skillName]: value === prev[skillName] ? value - 1 : value,
+    onSkillsChange((prev) => ({
+      ...prev,
+      [skillName]: value === prev[skillName] ? value - 1 : value,
     }));
   };
 
@@ -98,7 +93,7 @@ const SkillsTable = ({ skills, attributes, onSkillsChange }) => {
                       key={i}
                       onClick={() => handleDotClick(skill.name, i)}
                       className={`w-3 h-3 rounded-full border cursor-pointer ${
-                        i <= (localSkills?.[skill.name] || 0)
+                        i <= (skills?.[skill.name] || 0)
                           ? 'bg-red-600 border-red-600'
                           : 'bg-gray-700 border-gray-500'
                       } ${editMode ? 'hover:ring ring-red-300' : ''}`}

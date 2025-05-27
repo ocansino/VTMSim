@@ -111,38 +111,23 @@ const BloodPotencyRow = ({ values, onBoxClick, editMode, statusLabel, onRouseChe
   </div>
 );
 
-const HealthTracker = ({ maxHealth, maxWillpower }) => {
+const HealthTracker = ({
+  maxHealth,
+  maxWillpower,
+  health,
+  setHealth,
+  willpower,
+  setWillpower,
+  hunger,
+  setHunger,
+  humanity,
+  setHumanity,
+  bloodPotency,
+  setBloodPotency,
+}) => {
   const [editMode, setEditMode] = useState(false);
-  const [health, setHealth] = useState(() => Array(maxHealth).fill(0));
-  const [willpower, setWillpower] = useState(() => Array(maxWillpower).fill(0));
-  const [hunger, setHunger] = useState(0); // 0 to 5
-  const humanityScore = 7; // or pass this as a prop later
+
   
-  const [humanity, setHumanity] = useState(() => {
-    return Array.from({ length: 10 }, (_, i) => (i < humanityScore ? 1 : 0));
-  });
-
-  const [bloodPotency, setBloodPotency] = useState(() =>
-    Array.from({ length: 10 }, (_, i) => (i < 1 ? 1 : 0)) // Default to Potency 1
-  );
-
-  useEffect(() => {
-    setHealth((prev) => {
-      const diff = maxHealth - prev.length;
-      const next = [...prev.slice(0, maxHealth)];
-      while (next.length < maxHealth) next.push(0);
-      return next;
-    });
-  }, [maxHealth]);
-
-  useEffect(() => {
-    setWillpower((prev) => {
-      const diff = maxWillpower - prev.length;
-      const next = [...prev.slice(0, maxWillpower)];
-      while (next.length < maxWillpower) next.push(0);
-      return next;
-    });
-  }, [maxWillpower]);
 
   const cycleDamage = (value) => (value + 1) % 3;
 
