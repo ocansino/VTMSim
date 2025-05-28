@@ -86,9 +86,9 @@ const DisciplineRow = ({
   </div>
 );
 
-const DisciplinesPanel = ({ disciplines: initialDisciplines }) => {
+const DisciplinesPanel = ({ disciplines, setDisciplines }) => {
   const [editMode, setEditMode] = useState(false);
-  const [disciplines, setDisciplines] = useState(initialDisciplines);
+  
 
   const toggleEdit = () => {
     setEditMode((prev) => !prev);
