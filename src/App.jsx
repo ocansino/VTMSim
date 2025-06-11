@@ -21,7 +21,7 @@ function App() {
       disciplines,
       merits,
       profileText,
-      inventoryText, // added
+      inventoryText, // added now
       notesText,
       health,
       willpower,
