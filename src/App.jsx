@@ -152,7 +152,7 @@ function App() {
   
   return (
     
-    <div className="min-h-screen w-screen bg-gray-950 px-6 py-8">
+    <div className="min-h-screen w-screen bg-gray-950 px-6 pb-24 pt-8">
       <div className="flex flex-col lg:flex-row gap-6 w-full">
         <div className="flex-1 w-full">
           <CharacterInfo
@@ -187,6 +187,7 @@ function App() {
       <div className="mt-6">
   
       <div className="flex space-x-4 border-b border-gray-700 mb-4">
+        
         {['skills', 'disciplines', 'merits', 'profile', 'inventory', 'actions', 'notes'].map((tab) => (
           <button
             key={tab}
@@ -200,6 +201,24 @@ function App() {
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
           </button>
         ))}
+        <div className="flex flex-wrap gap-4 mt-6">
+          <button
+            onClick={handleExport}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm"
+          >
+            Export Character
+          </button>
+
+          <label className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm cursor-pointer">
+            Import Character
+            <input
+              type="file"
+              accept=".json"
+              onChange={handleImport}
+              className="hidden"
+            />
+          </label>
+        </div>
       </div>
 
     {activeTab === 'skills' && (
@@ -241,25 +260,27 @@ function App() {
     )}
 
     </div>
-    <div className="flex flex-wrap gap-4 mt-6">
-        <button
-          onClick={handleExport}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm"
-        >
-          Export Character
-        </button>
-
-        <label className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm cursor-pointer">
-          Import Character
-          <input
-            type="file"
-            accept=".json"
-            onChange={handleImport}
-            className="hidden"
-          />
-        </label>
+    
+      <div className="fixed bottom-0 left-0 w-full bg-gray-900 border-t border-gray-700 text-white z-50">
+        <div className="flex justify-around py-3 text-sm">
+          <button className="flex flex-col items-center focus:outline-none">
+            <span className="text-lg">🗺️</span>
+            <span>Map</span>
+          </button>
+          <button className="flex flex-col items-center focus:outline-none">
+            <span className="text-lg">🎒</span>
+            <span>Inventory</span>
+          </button>
+          <button className="flex flex-col items-center focus:outline-none">
+            <span className="text-lg">📜</span>
+            <span>Quest</span>
+          </button>
+          <button className="flex flex-col items-center focus:outline-none">
+            <span className="text-lg">🧛</span>
+            <span>Character</span>
+          </button>
+        </div>
       </div>
-
     </div>
   );
 }
