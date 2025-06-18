@@ -1,10 +1,16 @@
-// src/pages/TestChronicle.jsx
+// src/pages/CrimsonGutter1.jsx
 import React from 'react';
-import ChroniclePage from './ChroniclePage';
+import ChroniclePage from '../ChroniclePage';
 
 const testPageData = {
-  title: 'Growing Rat Problem',
-  description: `The air in this room is moist and the floor is damp. There is a strong smell of sewage.`,
+  title: 'The Bunker - Entrance',
+  description: 
+  `You have started your journey as an fledgling in the town of Dragonshore, a village on the coast of the Great Sea of Neladrian. 
+  It has become known to many of the locals that you are here to find paid work, and it is not long before you are approached with a proposition. 
+  The eldery scholer, Olohand approchers you in the main street of Dragonshore.
+  `,
+  
+  
   image: '/images/sewer_room.jpg', // replace with actual path or URL
   gameTips: [
     'It is too dangerous to rest in these sewers.',

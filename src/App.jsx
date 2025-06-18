@@ -6,7 +6,7 @@ import Map from './pages/Map';
 import ChroniclePage from './pages/ChroniclePage';
 import Quest from './pages/Quest';
 import Layout from './components/Layout';
-import TestChronicle from './pages/TestChronicle';
+import TestChronicle from './pages/Chronicles/TestChronicle';
 
 export default function App() {
   return (

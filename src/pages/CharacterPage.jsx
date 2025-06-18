@@ -14,64 +14,8 @@ import BottomNav from '../components/BottomNav';
 
 function CharacterPage() {
   const [activeTab, setActiveTab] = useState('skills');
-  const handleExport = () => {
-    const data = {
-      characterInfo,
-      attributes,
-      skills,
-      disciplines,
-      merits,
-      profileText,
-      inventoryText, // added now
-      notesText,
-      health,
-      willpower,
-      hunger,
-      humanity,
-      bloodPotency
-    };
-
-    const blob = new Blob([JSON.stringify(data, null, 2)], {
-      type: 'application/json'
-    });
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${characterInfo.name || 'vtm_character'}.json`;
-    link.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const handleImport = (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        const data = JSON.parse(e.target.result);
-        if (data.characterInfo) setCharacterInfo(data.characterInfo);
-        if (data.attributes) setAttributes(data.attributes);
-        if (data.skills) setSkills(data.skills);
-        if (data.disciplines) setDisciplines(data.disciplines);
-        if (data.merits) setMerits(data.merits);
-        if (data.profileText) setProfileText(data.profileText);
-        if (data.inventoryText) setInventoryText(data.inventoryText);
-        if (data.notesText) setNotesText(data.notesText);
-        if (Array.isArray(data.health)) setHealth(data.health);
-        if (Array.isArray(data.willpower)) setWillpower(data.willpower);
-        if (typeof data.hunger === 'number') setHunger(data.hunger);
-        if (data.humanity) setHumanity(data.humanity);
-        if (data.bloodPotency) setBloodPotency(data.bloodPotency);
-
-        alert('Character imported successfully!');
-      } catch (err) {
-        alert('Failed to import character: Invalid JSON');
-      }
-    };
-    reader.readAsText(file);
-  };
+  const [loaded, setLoaded] = useState(false);
+  
   
   const [disciplines, setDisciplines] = useState([
   {
@@ -141,6 +85,66 @@ function CharacterPage() {
       return newArr;
     });
   }, [attributes.physical.stamina]);
+  const handleExport = () => {
+    const data = {
+      characterInfo,
+      attributes,
+      skills,
+      disciplines,
+      merits,
+      profileText,
+      inventoryText, // added now
+      notesText,
+      health,
+      willpower,
+      hunger,
+      humanity,
+      bloodPotency
+    };
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: 'application/json'
+    });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${characterInfo.name || 'vtm_character'}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleImport = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (data.characterInfo) setCharacterInfo(data.characterInfo);
+        if (data.attributes) setAttributes(data.attributes);
+        if (data.skills) setSkills(data.skills);
+        if (data.disciplines) setDisciplines(data.disciplines);
+        if (data.merits) setMerits(data.merits);
+        if (data.profileText) setProfileText(data.profileText);
+        if (data.inventoryText) setInventoryText(data.inventoryText);
+        if (data.notesText) setNotesText(data.notesText);
+        if (Array.isArray(data.health)) setHealth(data.health);
+        if (Array.isArray(data.willpower)) setWillpower(data.willpower);
+        if (typeof data.hunger === 'number') setHunger(data.hunger);
+        if (data.humanity) setHumanity(data.humanity);
+        if (data.bloodPotency) setBloodPotency(data.bloodPotency);
+
+        localStorage.setItem('vtmCharacterData', JSON.stringify(data));
+
+        alert('Character imported successfully!');
+      } catch (err) {
+        alert('Failed to import character: Invalid JSON');
+      }
+    };
+    reader.readAsText(file);
+  };
 
   useEffect(() => {
     const max = attributes.social.composure + attributes.mental.resolve;
@@ -150,6 +154,56 @@ function CharacterPage() {
       return newArr;
     });
   }, [attributes.social.composure, attributes.mental.resolve]);
+
+  useEffect(() => {
+    const savedData = localStorage.getItem('vtmCharacterData');
+    if (savedData) {
+      try {
+        const data = JSON.parse(savedData);
+
+        if (data.characterInfo) setCharacterInfo(data.characterInfo);
+        if (data.attributes) setAttributes(data.attributes);
+        if (data.skills) setSkills(data.skills);
+        if (data.disciplines) setDisciplines(data.disciplines);
+        if (data.merits) setMerits(data.merits);
+        if (data.profileText) setProfileText(data.profileText);
+        if (data.inventoryText) setInventoryText(data.inventoryText);
+        if (data.notesText) setNotesText(data.notesText);
+        if (Array.isArray(data.health)) setHealth(data.health);
+        if (Array.isArray(data.willpower)) setWillpower(data.willpower);
+        if (typeof data.hunger === 'number') setHunger(data.hunger);
+        if (data.humanity) setHumanity(data.humanity);
+        if (data.bloodPotency) setBloodPotency(data.bloodPotency);
+      } catch (err) {
+        console.error('Failed to parse character from localStorage');
+      }
+    }
+    setLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (!loaded) return;
+    const data = {
+      characterInfo,
+      attributes,
+      skills,
+      disciplines,
+      merits,
+      profileText,
+      inventoryText,
+      notesText,
+      health,
+      willpower,
+      hunger,
+      humanity,
+      bloodPotency
+    };
+    localStorage.setItem('vtmCharacterData', JSON.stringify(data));
+  }, [
+    characterInfo, attributes, skills, disciplines, merits,
+    profileText, inventoryText, notesText,
+    health, willpower, hunger, humanity, bloodPotency
+  ]);
   
   return (
     
