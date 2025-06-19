@@ -1,5 +1,5 @@
 // src/pages/ChroniclePage.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 function Encounter({ content }) {
   const [diceCount, setDiceCount] = useState(5);
@@ -24,6 +24,8 @@ function Encounter({ content }) {
     setDiceCount(initDice);
     setEnemyDamage(Array(initEnemies).fill(0));
   }, [content]);
+
+  
 
   const rollDice = () => {
     const rolls = Array.from({ length: diceCount }, () => Math.ceil(Math.random() * 10));
@@ -137,14 +139,14 @@ function Encounter({ content }) {
   );
 }
 
-export default function ChroniclePage({ pageData, onNext, onPrevious, isFirstPage, isLastPage }) {
+export default function ChroniclePage({ pageData, onNext, onPrevious, goToSection, isFirstPage, isLastPage }) {
   const [revealedEvents, setRevealedEvents] = useState([]);
   const [actionResults, setActionResults] = useState({}); // Track results per action
   const [skillCheckResults, setSkillCheckResults] = useState({});
   const [expandedActions, setExpandedActions] = useState({});
   const [expandedOutcomes, setExpandedOutcomes] = useState({});
   const [revealedSubChecks, setRevealedSubChecks] = useState({});
-
+  const scrollRef = useRef(null);
 
 
   const revealEvent = (eventId) => {
@@ -173,12 +175,29 @@ export default function ChroniclePage({ pageData, onNext, onPrevious, isFirstPag
     }
   };
 
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [pageData]);
+
+  useEffect(() => {
+    // Reset state when a new page is loaded
+    setExpandedActions({});
+    setExpandedOutcomes({});
+    setRevealedEvents([]);
+    setActionResults({});
+    setRevealedSubChecks({});
+  }, [pageData]);
+
+
   const renderSkillCheck = (check, checkKey, depth = 0) => {
-    const isMain = typeof checkKey === 'number';
-    const key = isMain ? checkKey : checkKey.join('-');
+    const isMain = typeof checkKey === 'number' || (Array.isArray(checkKey) && checkKey.length === 2);
+    const key = isMain ? (Array.isArray(checkKey) ? checkKey.join('-') : checkKey) : checkKey.join('-');
 
     const isVisible = isMain || revealedSubChecks[checkKey.slice(0, -1).join('-')];
     if (!isVisible) return null;
+
 
     return (
       <div key={key} className={`ml-${depth * 4} bg-gray-800 p-3 rounded`}>
@@ -232,7 +251,7 @@ export default function ChroniclePage({ pageData, onNext, onPrevious, isFirstPag
   
 
   return (
-    <div className="w-screen h-screen p-6 text-white bg-gray-900 overflow-y-auto">
+    <div ref={scrollRef} className="w-screen h-screen p-6 text-white bg-gray-900 overflow-y-auto">
       <h1 className="text-3xl font-bold mb-4">{pageData.title}</h1>
       
       {pageData.image && (
@@ -312,7 +331,11 @@ export default function ChroniclePage({ pageData, onNext, onPrevious, isFirstPag
                   
                   {/* Skill Check Buttons */}
                   {action.type === 'skillCheck' && renderSkillCheck(action, idx)}
-
+                  {action.type === 'multiSkillCheck' &&
+                    action.skillChecks?.map((check, checkIdx) =>
+                      renderSkillCheck(check, [idx, checkIdx])
+                    )
+                  }
 
                   {/* Optional revealed event */}
                   {action.eventId && revealedEvents.includes(action.eventId) && (() => {
@@ -353,7 +376,9 @@ export default function ChroniclePage({ pageData, onNext, onPrevious, isFirstPag
                           onClick={() => {
                             if (choice.action === 'next' && onNext) onNext();
                             else if (choice.action === 'previous' && onPrevious) onPrevious();
-                            // custom actions go here
+                            else if (choice.action === 'goto' && goToSection && choice.targetId) {
+                              goToSection(choice.targetId);
+                            }
                           }}
                           className="bg-indigo-700 hover:bg-indigo-600 px-4 py-2 rounded text-white"
                         >

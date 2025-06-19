@@ -4,6 +4,7 @@ import ChroniclePage from '../ChroniclePage';
 const STORAGE_KEY = 'chronicle_currentPage';
 const chroniclePages = [
 {
+  id: 'page1',
   title: 'Shadows in the Dark',
   sections: [
     {
@@ -92,6 +93,7 @@ const chroniclePages = [
   ],
 },
 {
+    id: 'page2',
     title: 'Bunker - Entrance Corridor',
     sections: [
       {
@@ -167,6 +169,7 @@ const chroniclePages = [
     ],
 },
 {
+    id: 'page3',
     title: 'Bunker - Entrance Chamber',
     sections: [
       {
@@ -219,22 +222,69 @@ const chroniclePages = [
     ],
     actions: [
       { label: 'Turn around', eventId: 'return1'},
-      { label: 'Examine the door in front of you', eventId: 'frontDoor' },
-      { label: 'Examine the door ahead for traps',
-      type: 'skillCheck',
-      description: 'You check the door to see if it is trapped. (Wits + Investigation, Dif: 2)',
-      resultPass: 'You peer through the window of the door and notice a wire on the other side. It is trapped.',
-      resultFail: 'You cannot tell if it is trapped or not.',
-      subChecks: [
+      { label: 'Examine the door in front of you',
+      type: 'multiSkillCheck',
+      skillChecks: [
+        {
+        description: 'This is a simple wooden door. It is unlocked. You can check the door to see if it is trapped. (Wits + Investigation, Dif: 2)',
+        resultPass: 'You peer through the window of the door and notice a wire on the other side. It is trapped.',
+        resultFail: 'You cannot tell if it is trapped or not.',
+        subChecks: [
         {
           description: 'You can attempt to disarm the wire. (Dex + Larceny, Dif: 2)',
           resultPass: 'You slide a stick under the door and activate the trap. You hear a loud thud on the other side of the door.',
           resultFail: 'You fail to activate the trap.',
           
         }
-      ] 
+        ]
+        }
+      ], 
       },
       { label: 'Open the door ahead', eventId: 'openDoor' },
+      { label: 'Examine the door off to the side',
+      type: 'multiSkillCheck',
+      skillChecks: [
+        {
+          description: `This is a simple wooden door. It has a rusted metal brace across the middle of it, providing extra reinforcement. 
+          You can check the door for traps. (Wits + Investigation, Dif: 2)
+          `,
+          resultPass: 'You determine the door is untrapped.',
+          resultFail: 'You cannot tell if it is trapped or not.',
+          
+        },
+        {
+          description: `You can listen at the door for sounds on the other side (Wits + Investigation, Dif: 2).
+          `,
+          resultPass: 'You hear the sound of shambling footsteps.',
+          resultFail: 'You cannot hear anything.',
+        },
+        {
+          description: 'You can attempt to lift the brace. (Str + Dex, Dif: 2)',
+          resultPass: 'You manage to lift the rusty brace up and unlock the door. You can use Outcome 3 to go through it.',
+          resultFail: 'You fail to lift up the brace. The door remains locked.',
+        },
+      ]
+      },
+      { label: 'Examine the pile of bones', eventId: 'bonePile'},
+      { 
+        label: 'Examine the urn on the pedestal',
+        type: 'multiSkillCheck',
+        skillChecks: [
+        {
+          description: 'You notice a memorial urn full of ashes. You can examine it futher (Wits + Investigation, Dif: 2).',
+          resultPass: 'On closer examination, you notice symbols of an arcane nature under the urn.',
+          resultFail: 'You cannot find anything out of place with the urn and pedestal.',
+          subChecks: [
+          {
+            description: 'You can try and discern the nature of the symbols (Int + Occult, Dif: 2).',
+            resultPass: 'You realize that the symbols form a ward of some kind. It would be a bad idea to pick up the urn.',
+            resultFail: 'You fail to grasp the meaning.',
+          }
+          ]
+        },
+        ], 
+      },
+      { label: 'Touch the Urn', eventId: 'urn'},
       
     ],
     events: [
@@ -244,16 +294,21 @@ const chroniclePages = [
         content: 'You can return back the way you came. You can use the first outcome to go back.'
       },
       {
-        id: 'frontDoor',
-        title: 'The Door Ahead',
-        content: 'This is a simple wooden door. It is unlocked.'
-      },
-      {
         id: 'openDoor',
         title: 'The Door Ahead',
         content: `You open the door ahead. 
         If you did not disable the trap, a rusty axe swings down from atop the door frame and strikes you. (Dex + Athletics, Dif: 4) to dodge. Otherwise Take 1 superficial damage.
         If you disabled the trap, you notice a rusty axe embedded into the door from the trap earlier. Use Outcome 2 to proceed through the door.`
+      },
+      {
+        id: 'bonePile',
+        title: 'The Pile of Bones',
+        content: 'You notice a pile of bones, both from animal and human sources.'
+      },
+      {
+        id: 'urn',
+        title: 'The Urn on the Pedestal',
+        content: 'The moment you touch the urn, arcane symbols under it start glowing. Bolts of electricity fly out at you. (Dex + Athletics, Dif: 4) to dodge. Otherwise take 1 aggravated damage.'
       },
     ],
     choices: [
@@ -267,11 +322,146 @@ const chroniclePages = [
         id: 'frontDoor',
         label: 'Go through the door ahead',
         description: 'Walk through the door into the next room.',
-        action: 'previous', // or a custom handler
+        action: 'next', // or a custom handler
+      },
+      {
+        id: 'sideDoor',
+        label: 'Go through the door off to the side',
+        description: 'Walk through the door into the next room.',
+        action: 'goto', // or a custom handler
+        targetId: 'page5'
       },
       
       
     ],
+},
+{
+  id: 'page4',
+  title: 'Bunker - Storage Room',
+  sections: [
+    {
+      heading: 'Last Action Taken',
+      content: [
+        {type: 'text', value:`You have moved from the chamber to a storage room.`},
+        {type: 'image', src: 'src/assets/testChronicle/bunkerStorage.jpg'},
+      ],
+    },
+    {
+      heading: 'Room Description',
+      content: [
+        {type: 'text', value:`You have entered a small storage room. Along one wall is a row of rotting coffins.`},
+      ],
+    },
+  ],
+  objects: [
+    'The Door Behind You',
+    'The Coffins',
+  ],
+  actions: [
+    { label: 'Turn around', eventId: 'storageDoor' },
+    { label: 'Examine the Coffins', eventId: 'coffins' },
+    
+  ],
+  events: [
+    {
+      id: 'storageDoor',
+      title: 'The Storage Door',
+      content: 'You can return the way you came. Use Outcome 1 to go back to the chamber.'
+    },
+    {
+      id: 'coffins',
+      title: 'The Row of Coffins',
+      content: 'You examine the coffins. They are old and rotting, with wood splintering and peeling. These probably belonged to the undead that you have encountered.'
+    },
+  ],
+  choices: [
+      {
+        id: 'returnDoor',
+        label: 'Go back through the door',
+        description: 'You walk back out into the chamber',
+        action: 'previous', // or a custom handler
+      },
+      
+      
+  ],  
+},
+{
+  id: 'page5',
+  title: 'Bunker - Ritual Room',
+  sections: [
+    {
+      heading: 'Last Action Taken',
+      content: [
+        {type: 'text', value:`You are standing at the end of a large circular room.`},
+        { type: 'image', src: 'src/assets/testChronicle/bunkerRitual.jpg'},
+      ],
+    },
+    {
+      heading: 'Room Description',
+      content: [
+        {type: 'text', value:`You have entered a large ritual chamber. At the end of the room is a corpse on a slab. In front of the slab is a figure in tattered robes.
+        The figure senses your arrival, grabs a large curved knife from the slab and charges towards you. You have just enough time to notice how tight his skin looks on his bones.
+        `},
+        { type: 'image', src: 'src/assets/testChronicle/cultist.jpg'},
+      ],
+    },
+    {
+      heading: 'Encounter',
+      content: [
+        {type: 'text', value:`Crazed Cultist armed with a knife. Physical 4, Social/Mental 4. Health 6, Willpower 5. Awareness 6, Intimidation 5, Occult 6, Stealth 5
+          The Cultist's curved knife adds an extra damage to its attacks.`},
+        { type: 'meta', value: { defaultEnemies: 1, defaultHealth: 6, defaultDice: 4 } } // optional enhancement
+      ],
+    },
+    {
+      heading: 'After Combat',
+      content: [
+        {type: 'text', value:`You defeat the Cultist. You realize after the fact that this was no normal Kine. This was a ghoul. You turn your attention to the slab and the corpse on it.
+          `},
+        { type: 'image', src: 'src/assets/testChronicle/corpseTorpor.jpg'},
+      ],
+    },
+  ],
+  objects: [
+    'The Door Behind You',
+    'The Corpse On The Slab',
+  ],
+  actions: [
+    { label: 'Turn around', eventId: 'storageDoor' },
+    { label: 'Examine the Corpse', eventId: 'corpse' },
+    
+  ],
+  events: [
+    {
+      id: 'storageDoor',
+      title: 'The Storage Door',
+      content: 'You can return the way you came. Use Outcome 1 to go back to the chamber.'
+    },
+    {
+      id: 'corpse',
+      title: 'The Corpse',
+      content: `You examine the corpse. You instantly feel a primal sensation, like your beast is warning you against your current action. Then an understanding hits you, this isn't a corpse.
+      This is one of you. This is a Kindred in torpor. Use Outcome 2.`
+    },
+  ],
+  choices: [
+      {
+        id: 'returnDoor',
+        label: 'Go back through the door',
+        description: 'You walk back out into the chamber',
+        action: 'goto', // or a custom handler
+        targetId: 'page3'
+      },
+      {
+        id: 'endGame',
+        label: 'Finish the Tutorial',
+        description: 'Thanks for playing :)',
+        action: 'goto', // or a custom handler
+        targetId: 'page1'
+      },
+      
+      
+  ],  
 },
 
 ]
@@ -283,6 +473,15 @@ export default function TestChronicle() {
     const saved = localStorage.getItem('chronicle_currentPage');
     return saved !== null && !isNaN(saved) ? Number(saved) : 0;
   });
+
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+
+  const handleGoToSection = (targetId) => {
+    const targetIndex = chroniclePages.findIndex((section) => section.id === targetId);
+    if (targetIndex !== -1) {
+      setCurrentSectionIndex(targetIndex);
+    }
+  };
 
   // Load saved progress from localStorage on first render
   useEffect(() => {
@@ -312,11 +511,12 @@ export default function TestChronicle() {
   return (
     <div>
       <ChroniclePage
-        pageData={chroniclePages[currentPageIndex]}
-        onNext={handleNext}
-        onPrevious={handlePrev}
-        isFirstPage={currentPageIndex === 0}
-        isLastPage={currentPageIndex === chroniclePages.length - 1}
+        pageData={chroniclePages[currentSectionIndex]}
+        onNext={() => setCurrentSectionIndex((i) => i + 1)}
+        onPrevious={() => setCurrentSectionIndex((i) => i - 1)}
+        goToSection={handleGoToSection}
+        isFirstPage={currentSectionIndex === 0}
+        isLastPage={currentSectionIndex === chroniclePages.length - 1}
       />
 
       
