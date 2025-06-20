@@ -7,6 +7,7 @@ import ChroniclePage from './pages/ChroniclePage';
 import Quest from './pages/Quest';
 import Layout from './components/Layout';
 import TestChronicle from './pages/Chronicles/TestChronicle';
+import Intro from './pages/Chronicles/intro/intro';
 
 export default function App() {
   return (
@@ -15,7 +16,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<CharacterPage />} />
           <Route path="/map" element={<Map />} />
-          <Route path="/chronicle" element={<TestChronicle />} />
+          <Route path="/chronicle" element={<Intro />} />
           <Route path="/quest" element={<Quest />} />
         </Route>
       </Routes>

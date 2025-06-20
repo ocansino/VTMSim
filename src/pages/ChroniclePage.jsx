@@ -140,6 +140,7 @@ function Encounter({ content }) {
 }
 
 export default function ChroniclePage({ pageData, onNext, onPrevious, goToSection, isFirstPage, isLastPage }) {
+  if (!pageData) return null;
   const [revealedEvents, setRevealedEvents] = useState([]);
   const [actionResults, setActionResults] = useState({}); // Track results per action
   const [skillCheckResults, setSkillCheckResults] = useState({});
