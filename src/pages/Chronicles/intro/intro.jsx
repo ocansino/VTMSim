@@ -231,14 +231,21 @@ const chroniclePages = [
         
         Just as the primal horror truly sinks in, a figure steps out of the deeper shadows. She moves with an elegant, almost preternatural stillness, her silhouette defined against the campus lights. Her expression is 
         calm, authoritative, perhaps a touch weary, but utterly in control. She sizes you up in an instant, her gaze cool and assessing, missing nothing of your disoriented terror and burgeoning monstrous urges.
+        The figure observes your horrifying awakening for a long moment, her calm gaze unwavering. "A messy first meal," she finally states, her voice low and composed, carrying a faint, cultured British lilt. "Predictable, but inefficient. You'll learn to be more discreet." She steps closer, and you recognize the woman who visited you: Emerie Alveston. Her composure is unnerving, especially given the scene before 
+        you. You've seen her around campus before, a pale woman with thin features and curly brown hair that just reaches her chin. You've crossed paths in hallways, walked into buildings, but never spoken or 
+        interacted. Now, her presence here, at your lowest point, is a terrifying revelation. "Welcome to your new existence, childe," she continues, extending a hand to you. It's an offer of help, but there's an undeniable undercurrent of authority. "The hunger is a demanding master, but it can be controlled. I am Emerie. And it seems, you are mine now."
+
+        She doesn't wait for a response, her eyes flicking to the drained student. "This can't stay here. The Second Inquisition is always watching, always hunting. We need to move." She gestures towards the deeper 
+        shadows, indicating a path away from the immediate horror. "Come. There's much you need to understand, and precious little time to learn it." You are still kneeling in the sticky aftermath of your 
+        monstrous act. The raw, primal terror of what you've done, combined with the lingering echo of an insatiable hunger, threatens to overwhelm you. Emerie stands patiently, her hand still outstretched, her gaze fixed on you with an unnerving mixture of assessment and expectation. The dead student is a terrifying monument to your transformation.
         `}, 
         
       ],
     },
   ],
   actions: [
-    { label: 'You Feel An Indescribable Bond With Her', eventId: 'emerieSire' },
-    { label: 'Listen To The Woman', eventId: 'emerieMawla' },
+    { label: 'Take Her Hand. You Feel An Indescribable Bond With Her.', eventId: 'emerieSire' },
+    { label: 'Take Her Hand', eventId: 'emerieMawla' },
   ],
   events: [
     {
@@ -276,9 +283,337 @@ const chroniclePages = [
         label: 'Go back',
         description: 'I want to go back to the previous page',
         action: 'goto', // or a custom handler
+        targetId: 'page3'
+      },
+  ],
+},
+{
+  id: 'page5',
+  title: 'The Professor',
+  sections: [
+    {
+      heading: 'The Offer',
+      content: [
+        { type: 'image', src: 'src/pages/Chronicles/intro/assets/EmerieTemp.jpg'},
+        {type: 'text', value:`
+        You reach out, your hand trembling, and grasp Emerie's. Her grip is firm and surprisingly reassuring amidst the chaos of your mind. You immediately notice how cold her flesh is. She pulls you effortlessly to 
+        your feet, her eyes still scanning the area, dismissing the drained student with a clinical, almost detached, glance. "Follow me. Quickly," she murmurs, her voice leaving no room for argument. She moves with a 
+        fluid, silent grace you instinctively mirror, navigating the campus shadows with an uncanny ease. You stumble once, your limbs still unfamiliar and uncooperative, but she stabilizes you with a hand on your arm, her touch strangely grounding.
+        
+        She leads you into a secluded, older academic building you hadn't noticed before, and through a series of quiet, dimly lit hallways. The building is utterly deserted. Finally, she pushes open the door to an 
+        empty lecture hall. The room is dark, save for the faint glow filtering in from distant campus lights. She gestures toward a seat near the front. "Sit."
+        `},
+      ],
+    },
+    {
+      heading: 'The Classroom',
+      content: [
+        { type: 'image', src: 'src/pages/Chronicles/intro/assets/campusClassroom.jpg'},
+        {type: 'text', value:`
+        The new hunger gnaws at you, a cold, empty ache that screams for satisfaction, but her presence, her calm authority, is a more immediate demand. You slump into the chair, your body aching, your mind a 
+        whirlwind of fear, confusion, and the lingering phantom of ecstasy and horror. Emerie turns to face you, her expression serious, her eyes holding an ancient, knowing depth. "What you are experiencing," she 
+        begins, her voice softer now, more pedagogical, "is the Embrace. You are no longer mortal. You are now Kindred. Vampire."
+
+        "I have been observing you for some time," Emerie states, her gaze unwavering. "Your intellect, your drive for knowledge, your resilience—they are rare qualities. The world is changing, and the old ways are 
+        crumbling. We need minds like yours. I chose you. I brought you across." She holds up her own wrist for a moment, revealing two faint, almost imperceptible puncture marks. "The thirst you feel now is the 
+        blood of the dead. It will be your constant companion, a fire in your veins. But it is also power. You are no longer subject to the frailties of mortal flesh, but to the intricate laws of our kind. Your old life is gone. 
+        Your new one, as my childe, as a Tremere, begins tonight."
+
+        You are reeling. The words 'vampire' and 'dead' clash violently with every shred of your former reality. Yet, the chilling emptiness in your gut and the impossible sensation of unlife coursing through your veins 
+        scream that she speaks the truth. Questions, desperate and urgent, flood your mind.
+        `}, 
+        
+      ],
+    },
+  ],
+  actions: [
+    { label: 'Ask About What Happened To You', eventId: 'q1' },
+    { label: 'Ask About What Being a Vampire Entails', eventId: 'q2' },
+    { label: 'Ask About The Laws', eventId: 'q3' },
+    { label: 'Ask About The Second Inquisition', eventId: 'q4' },
+    { label: 'Ask About Our Relationship', eventId: 'q5' },
+
+  ],
+  events: [
+    {
+      id: 'q1',
+      title: 'The Embrace',
+      content: `
+      "What happened to you, childe, is transformation. I drained you of your mortal blood, leaving you at the brink of death, and then I fed you a measure of my own. That act, the exchange of vitae, is the 
+      Embrace. It halted your mortal heart and ignited the hunger, turning you into one of us. It is the ultimate act of creation, and of destruction. Your human life, with its frailties and certainties, is over. Your new 
+      existence, as a Tremere, as my progeny, has begun."
+      `
+    },
+    {
+      id: 'q2',
+      title: 'Our Nature',
+      content: `
+      Emerie sighs, a faint, almost imperceptible sound. "The nature of being a vampire, or Kindred as we prefer to be called, is complex, childe. We are no longer living, yet we are not truly dead. Our hearts do 
+      not beat, we do not breathe, and the sun is our bane. Our sustenance is blood - the very force of life itself. We possess strength, speed, and senses far beyond mortal kine, but we are bound by profound 
+      weaknesses. We are creatures of the night, driven by an insatiable thirst, and forever separated from the mortal coil we once inhabited. We exist in the shadows, an apex predator in a world that believes us to be myth."
+      `
+    },
+    {
+      id: 'q3',
+      title: 'The Laws',
+      content: `
+      Emerie's gaze sharpens, moving from your face to the door. "The laws I mentioned are paramount for our survival, especially now. The most critical is the Masquerade. We are a secret. Mortals must never 
+      know of our existence. Your act tonight, while born of instinct, is a grave breach. The consequences of such exposure are catastrophic for all Kindred. That body," she gestures dismissively, "will be dealt with. 
+      I have resources. It will be made to look like an unfortunate, but mundane, tragedy. A drug overdose, a random act of violence, a medical emergency – something that fits the mortal narrative. You will learn 
+      how to clean your messes more discreetly in the future, for your sake, and for ours."
+      `
+    },
+    {
+      id: 'q4',
+      title: 'The Second Inquisition',
+      content: `
+      Emerie's composure finally cracks, a flicker of genuine grimness crossing her features. "The Second Inquisition, childe, is our greatest modern threat. They are mortal hunters, highly organized, globally 
+      connected, and terrifyingly effective, often backed by governments and wielding advanced technology alongside their zeal. Unlike the ignorant witch hunters of old, they understand that vampires exist. 
+      They target our havens, exploit our weaknesses, and systematically unravel our secrets. Their attack on our Vienna Chantry shattered the very foundation of the Tremere Clan. They are why discretion is no 
+      longer merely prudent, but absolutely essential for every single one of us. They are why your uncontrolled act tonight is so gravely dangerous."
+      `
+    },
+    {
+      id: 'q5',
+      title: 'The Sire and Childe',
+      content: `
+      Emerie's expression softens almost imperceptibly, a hint of something ancient and deep entering her eyes. "The bond between a sire and childe is fundamental, and often, the most important relationship
+      you will ever know in unlife. I am your creator. I gave you this new existence, and in doing so, I have taken on the responsibility for your survival and your understanding of our world. You are bound to me 
+      by blood, and through that bond, I will guide you, teach you, and protect you. You will look to me for instruction, for answers, and for your place within the Tremere. This is not merely a familial connection, 
+      childe; it is a profound magical and social one, a tie that often lasts for centuries, shaping who and what you become." Use Outcome 1 when ready to move on.
+      `
+    },
+  ],
+  choices: [
+      {
+        id: 'sire',
+        label: 'Accept Your Fate',
+        description: 'It is a lot to take it, but you decide to go with the flow. Only she can help you now.',
+        action: 'goto', // or a custom handler
+        targetId: 'page7'
+      },
+      
+      {
+        id: 'goBack',
+        label: 'Go back',
+        description: 'I want to go back to the previous page',
+        action: 'goto', // or a custom handler
         targetId: 'page4'
       },
   ],
+},
+{
+  id: 'page6',
+  title: 'The Professor',
+  sections: [
+    {
+      heading: 'The Offer',
+      content: [
+        { type: 'image', src: 'src/pages/Chronicles/intro/assets/EmerieTemp.jpg'},
+        {type: 'text', value:`
+        You reach out, your hand trembling, and grasp Emerie's. Her grip is firm and surprisingly reassuring amidst the chaos of your mind. You immediately notice how cold her flesh is. She pulls you effortlessly to 
+        your feet, her eyes still scanning the area, dismissing the drained student with a clinical, almost detached, glance. "Follow me. Quickly," she murmurs, her voice leaving no room for argument. She moves with a 
+        fluid, silent grace you instinctively mirror, navigating the campus shadows with an uncanny ease. You stumble once, your limbs still unfamiliar and uncooperative, but she stabilizes you with a hand on your arm, her touch strangely grounding.
+        
+        She leads you into a secluded, older academic building you hadn't noticed before, and through a series of quiet, dimly lit hallways. The building is utterly deserted. Finally, she pushes open the door to an 
+        empty lecture hall. The room is dark, save for the faint glow filtering in from distant campus lights. She gestures toward a seat near the front. "Sit."
+        `},
+      ],
+    },
+    {
+      heading: 'The Classroom',
+      content: [
+        { type: 'image', src: 'src/pages/Chronicles/intro/assets/campusClassroom.jpg'},
+        {type: 'text', value:`
+        The new hunger gnaws at you, a cold, empty ache that screams for satisfaction, but her presence, her calm authority, is a more immediate demand. You slump into the chair, your body aching, your mind a 
+        whirlwind of fear, confusion, and the lingering phantom of ecstasy and horror. Emerie turns to face you, her expression serious, her eyes holding an ancient, knowing depth. "What you are experiencing," she 
+        begins, her voice softer now, more pedagogical, "is the Embrace. You are no longer mortal. You are now Kindred. Vampire."
+
+        "I was alerted to another presence here on campus" Emerie states, her gaze sharp, "Another one of my - our kind. It led me here, to you. You didn't happen to see them, did you? I thought not. Embraces can be
+        a bit hazy. This... this was an unusual, uncontrolled turning. A rogue." She studies your expression, noting your confusion. "Someone acted without permission, without guidance. That makes you dangerous. To 
+        yourself, and to us. But it also means you are... unclaimed. A blank slate, albeit a very messy one." She takes a moment to think to herself. She then gestures to your blood-soaked state. "The hunger you feel 
+        now is the blood of the dead. It will be your constant companion, a fire in your veins. It is power, but it is also a curse. Your old life is gone. Your new one, as a Kindred,  begins tonight. And for now, you are 
+        under my care."
+
+        You are reeling. The words 'vampire' and 'dead' clash violently with every shred of your former reality. Yet, the chilling emptiness in your gut and the impossible sensation of unlife coursing through your veins 
+        scream that she speaks the truth. Questions, desperate and urgent, flood your mind.
+        `}, 
+        
+      ],
+    },
+  ],
+  actions: [
+    { label: 'Ask About What Happened To You', eventId: 'q1' },
+    { label: 'Ask About What Being a Vampire Entails', eventId: 'q2' },
+    { label: 'Ask About The Laws', eventId: 'q3' },
+    { label: 'Ask About The Second Inquisition', eventId: 'q4' },
+    { label: 'Ask About Our Relationship', eventId: 'q5' },
+
+  ],
+  events: [
+    {
+      id: 'q1',
+      title: 'The Embrace',
+      content: `
+      Emerie's expression hardens slightly, her eyes flicking to the blood staining your clothes. "You underwent the Embrace. Someone, either by accident or perhaps trying to cause chaos, drained you to near 
+      death and then, for reasons unknown, allowed your body to absorb enough Kindred blood to complete the transformation. You are a fledgling, but without a guiding hand, you're a disaster waiting to 
+      happen. Most 'rogue' Embraces result in the quick demise of the fledgling, often by their own uncontrolled hunger or by our kind's 'justice'. You're fortunate I found you before either happened."
+      `
+    },
+    {
+      id: 'q2',
+      title: 'Our Nature',
+      content: `
+      Emerie sighs, a faint, almost imperceptible sound. "The nature of being a vampire, or Kindred as we prefer to be called, is complex, childe. We are no longer living, yet we are not truly dead. Our hearts do 
+      not beat, we do not breathe, and the sun is our bane. Our sustenance is blood - the very force of life itself. We possess strength, speed, and senses far beyond mortal kine, but we are bound by profound 
+      weaknesses. We are creatures of the night, driven by an insatiable thirst, and forever separated from the mortal coil we once inhabited. We exist in the shadows, an apex predator in a world that believes us to be myth."
+      `
+    },
+    {
+      id: 'q3',
+      title: 'The Laws',
+      content: `
+      Emerie's gaze sharpens, moving from your face to the door. "The laws I mentioned are paramount for our survival, especially now. The most critical is the Masquerade. We are a secret. Mortals must never 
+      know of our existence. Your act tonight, while born of instinct, is a grave breach. The consequences of such exposure are catastrophic for all Kindred. That body," she gestures dismissively, "will be dealt with. 
+      I have resources. It will be made to look like an unfortunate, but mundane, tragedy. A drug overdose, a random act of violence, a medical emergency – something that fits the mortal narrative. You will learn 
+      how to clean your messes more discreetly in the future, for your sake, and for ours."
+      `
+    },
+    {
+      id: 'q4',
+      title: 'The Second Inquisition',
+      content: `
+      Emerie's composure finally cracks, a flicker of genuine grimness crossing her features. "The Second Inquisition, childe, is our greatest modern threat. They are mortal hunters, highly organized, globally 
+      connected, and terrifyingly effective, often backed by governments and wielding advanced technology alongside their zeal. Unlike the ignorant witch hunters of old, they understand that vampires exist. 
+      They target our havens, exploit our weaknesses, and systematically unravel our secrets. Their attack on our Vienna Chantry shattered the very foundation of the Tremere Clan. They are why discretion is no 
+      longer merely prudent, but absolutely essential for every single one of us. They are why your uncontrolled act tonight is so gravely dangerous."
+      `
+    },
+    {
+      id: 'q5',
+      title: 'The Sire and Childe',
+      content: `
+      Emerie's gaze is firm, her tone practical. "Traditionally, a sire is the one who performs the Embrace, who grants the Gift of unlife. They are responsible for teaching their childe the laws of our kind, for 
+      guiding them through their new existence, and for ensuring they do not breach the Masquerade. The childe, in turn, owes their sire loyalty and obedience. However, your situation is... unique. You have no 
+      sire to guide you. That makes you dangerous and vulnerable. For now, I will take on that responsibility. I will act as your Mawla - a mentor, a surrogate sire if you will. I am taking ownership of your 
+      education and your integration into Kindred society. You will still owe me the same loyalty and heed my instruction as a surrogate childe, for without it, your future will be short and brutal."
+      `
+    },
+  ],
+  choices: [
+      {
+        id: 'sire',
+        label: 'Accept Your Fate',
+        description: 'It is a lot to take it, but you decide to go with the flow. Only she can help you now.',
+        action: 'goto', // or a custom handler
+        targetId: 'page8'
+      },
+      
+      {
+        id: 'goBack',
+        label: 'Go back',
+        description: 'I want to go back to the previous page',
+        action: 'goto', // or a custom handler
+        targetId: 'page4'
+      },
+  ],
+},
+{
+  id: 'page7',
+  title: 'The Interlude',
+  sections: [
+    {
+      heading: 'The Chantry - San Fernando University Annex Building',
+      content: [
+        { type: 'image', src: 'src/pages/Chronicles/intro/assets/tremereChantry.jpg'},
+        {type: 'text', value:
+        `The blur of the first few nights is a kaleidoscope of terror, hunger, and bewildering instruction. Emerie moves with unnerving efficiency, guiding you away from the gruesome scene, the drained student 
+        seemingly vanishing into the night as if in a bad dream. There are scattered explanations offered, only terse commands to follow, to stay silent, to mimic her preternatural stillness as you navigate the night. 
+        Your hunger is a raw, burning ache, a constant companion that Emerie teaches you how to manage - for now.
+
+        Your first night ends at a new destination, an off-campus annex building of San Fernando University, a place that looks nondescript to mortal eyes but, through Emerie's subtle manipulation, becomes your new, 
+        hidden reality. This is her Tremere Chantry. It's not the grand, imposing fortress you might imagine as a wizard den from ancient tales, but a series of interconnected, soundproofed rooms, labs, and a 
+        surprisingly extensive library concealed behind unassuming office doors.
+
+        Over the following nights, your existence transforms into a disorienting montage. You learn to control the gnawing hunger, Emerie a stern but ever-present guide. She introduces you to the rudimentary 
+        principles of Blood Sorcery, demonstrating how to focus your will, how to sense the latent power in all things, though true mastery feels impossibly distant. You spend hours poring over dusty, ancient texts in 
+        the Chantry's library, grappling with dense occult theory that somehow, now, makes a terrifying kind of sense. You learn the strictures of the Masquerade, the vital importance of secrecy, and the terrifying 
+        omnipresence of the Second Inquisition.
+
+        Emerie assigns you the role of Acolyte. This isn't a title of prestige, but one of utility. You are her extra pair of hands, her shadow, there to aid her in whatever tasks she deems necessary for the Chantry's, and by 
+        extension, the Clan's, continued existence in this precarious new era. However it comes with the promise of advancement. Once you come into your own, you will be made an Apprentice, a fully fledged 
+        member of the Clan. You observe her, a silent witness to her tireless work - managing contacts, studying arcane lore, conducting hushed conversations that hint at larger, unseen struggles. The days are for 
+        daysleep in a carefully concealed room; the nights are for relentless learning and the cold reality of your new, monstrous unlife. Your initial terror slowly gives way to a grim acceptance, replaced by a growing, 
+        unsettling curiosity about the powers you now wield and the hidden world you now inhabit.
+
+        As the initial shock of your transformation begins to settle, a different kind of unease takes root: the unsettling realization that the Chantry isn't just Emerie's domain. In the flickering, low-lit nights that follow 
+        your Embrace, you begin to acquaint yourself with other figures who move through the annex, their routines as precise and shadowy as Emerie's. Several people seem to come and go, but three come to your mind as permanent residents. 
+
+        There's Olohand, the dignified elder with his white muttonchops, his movements as quiet and deliberate as turning the fragile pages of an ancient manuscript. You've heard him in hushed conversations with 
+        Emerie about forgotten histories and the weight of their Clan's lost knowledge. His presence here feels like a living archive, a connection to an older, more formalized world you've only just begun to glimpse.
+
+        And then there's Stephen Benson, Olohand's childe. He's the most outwardly awkward among them, often seen hunched over a laptop in a quiet corner or shuffling quickly through the Chantry's narrow 
+        hallways, a perpetually stressed look on his pale face. You've heard whispered exchanges about "brown paper packages" and "sourcing rare texts," his perpetual task. He seems more at home in the realm of 
+        ancient languages than in the new, dangerous reality you now inhabit.
+
+        Finally, there's Serena "Seraph" Varma, the other Apprentice. She's a stark contrast to Stephen's academic nervousness, moving with a sharp, almost military precision. Her eyes seem to constantly scan, assess, 
+        and her focus is clearly on the immediate, tangible threats. While Olohand and Stephen are buried in the past and texts, Serena feels rooted firmly in the dangerous present, her vigilance a constant reminder of 
+        the unseen enemies lurking just outside the Chantry's walls.
+
+
+        `},
+        
+      ],
+    },
+    
+    
+    
+  ],
+  
+  
+  actions: [
+    { label: 'Lost In The Pursuit Of Knowledge', eventId: 'introStudent' },
+    { label: 'Sought A Fleeting Moment Of Connection', eventId: 'introSeeker' },
+    
+    
+  ],
+  events: [
+    {
+      id: 'introStudent',
+      title: 'The Dedicated Student',
+      content: `The library's hushed aisles were your sanctuary, or perhaps a dimly lit lab or classroom your domain. You were driven by an insatiable hunger for understanding, which lead you to
+      pore over advanced texts, seeking the answers whispered within. Perhaps you immersed yourself in complex formulae or algorithms, trying to unravel the cold, elegant truth of the universe.
+      Maybe you engaged in a late-night study group, pushing the boundaries of your intellect with fellow insomniacs. You are The Student. Use outcome 1.
+      `
+    },
+    {
+      id: 'introSeeker',
+      title: 'The Seeker',
+      content: `The pulse of the night drew you, for many possible reasons. It could be you were chasing the fleeting high of a campus party, hoping to lose yourself in the crowd and the music.
+      Another possibility was meeting a clandestine contact, exchanging hushed words and secrets under the cover of darkness. 
+      Or perhaps you were simply wandering, drawn by the distant promise of companionship, or perhaps just the desire to not be alone. You are The Seeker. Use outcome 2.
+      `
+    },
+    
+  ],
+  choices: [
+      {
+        id: 'studentBound',
+        label: 'Fulfill your purpose',
+        description: 'You are supposed to be here, but not for the reason you think.',
+        action: 'goto', // or a custom handler
+        targetId: 'page2'
+      },
+      {
+        id: 'seekerAllured',
+        label: 'Go Back',
+        description: 'This does not sound right.',
+        action: 'goto', // or a custom handler
+        targetId: 'page4'
+      },
+      
+      
+  ],  
 },
 ]
 
