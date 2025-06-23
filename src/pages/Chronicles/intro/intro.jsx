@@ -506,7 +506,7 @@ const chroniclePages = [
         label: 'Accept Your Fate',
         description: 'It is a lot to take it, but you decide to go with the flow. Only she can help you now.',
         action: 'goto', // or a custom handler
-        targetId: 'page8'
+        targetId: 'page7'
       },
       
       {
@@ -535,14 +535,14 @@ const chroniclePages = [
         hidden reality. This is her Tremere Chantry. It's not the grand, imposing fortress you might imagine as a wizard den from ancient tales, but a series of interconnected, soundproofed rooms, labs, and a 
         surprisingly extensive library concealed behind unassuming office doors.
 
-        Over the following nights, your existence transforms into a disorienting montage. You learn to control the gnawing hunger, Emerie a stern but ever-present guide. She introduces you to the rudimentary 
-        principles of Blood Sorcery, demonstrating how to focus your will, how to sense the latent power in all things, though true mastery feels impossibly distant. You spend hours poring over dusty, ancient texts in 
-        the Chantry's library, grappling with dense occult theory that somehow, now, makes a terrifying kind of sense. You learn the strictures of the Masquerade, the vital importance of secrecy, and the terrifying 
-        omnipresence of the Second Inquisition.
+        Over the following nights, your existence transforms into a disorienting montage. You learn to control the gnawing hunger, Emerie a stern but ever-present guide. If you are a Tremere, she introduces you to the 
+        rudimentary principles of Blood Sorcery, demonstrating how to focus your will, how to sense the latent power in all things, though true mastery feels impossibly distant. You spend hours poring over dusty, 
+        ancient texts in the Chantry's library, grappling with dense occult theory that somehow, now, makes a terrifying kind of sense. Regardless, you learn the strictures of the Masquerade, the vital importance of 
+        secrecy, and the terrifying omnipresence of the Second Inquisition.
 
-        Emerie assigns you the role of Acolyte. This isn't a title of prestige, but one of utility. You are her extra pair of hands, her shadow, there to aid her in whatever tasks she deems necessary for the Chantry's, and by 
+        Emerie assigns you the role of Acolyte. This isn't a title of prestige, but one of utility. You are her extra pair of hands, her shadow, there to aid her in whatever tasks she deems necessary for the Chantry, and by 
         extension, the Clan's, continued existence in this precarious new era. However it comes with the promise of advancement. Once you come into your own, you will be made an Apprentice, a fully fledged 
-        member of the Clan. You observe her, a silent witness to her tireless work - managing contacts, studying arcane lore, conducting hushed conversations that hint at larger, unseen struggles. The days are for 
+        member of the Chantry. You observe her, a silent witness to her tireless work - managing contacts, studying arcane lore, conducting hushed conversations that hint at larger, unseen struggles. The days are for 
         daysleep in a carefully concealed room; the nights are for relentless learning and the cold reality of your new, monstrous unlife. Your initial terror slowly gives way to a grim acceptance, replaced by a growing, 
         unsettling curiosity about the powers you now wield and the hidden world you now inhabit.
 
@@ -559,7 +559,112 @@ const chroniclePages = [
         Finally, there's Serena "Seraph" Varma, the other Apprentice. She's a stark contrast to Stephen's academic nervousness, moving with a sharp, almost military precision. Her eyes seem to constantly scan, assess, 
         and her focus is clearly on the immediate, tangible threats. While Olohand and Stephen are buried in the past and texts, Serena feels rooted firmly in the dangerous present, her vigilance a constant reminder of 
         the unseen enemies lurking just outside the Chantry's walls.
+        `},
+        
+      ],
+    },
+    {
+      heading: 'San Fernando University',
+      content: [
+        { type: 'image', src: 'src/pages/Chronicles/intro/assets/campusHallway.jpg'},
+        {type: 'text', value:
+        `Days blur into nights within the Chantry's confines, filled with Emerie's relentless instruction and the unsettling presence of your new Kindred companions. The scholarly texts and whispered warnings about the 
+        Masquerade and the Second Inquisition become starker with each passing hour. And then, one night, Emerie deems you ready for your next lesson. "Your body is adapting, but the true test is in the field," 
+        Emerie states, her eyes like chips of flint in the dim light of the Chantry's main hall. "The hunger demands more than what I can provide in here. It demands skill. It demands control. Tonight, you hunt."
+        She leads you back onto the familiar, yet now alien, campus of San Fernando University. The night is a symphony of mortal life: students studying late in libraries, couples strolling under the trees, lone figures 
+        hurrying to their dorms. Each heartbeat thrums with a terrifying new clarity to your supernaturally enhanced senses, a potent lure to the Beast stirring within you.
+        Thus far you have subsisted yourself on bagged blood, but you know it pales in comparison to the real thing. Emerie guides you to a secluded vantage point overlooking a quad, gesturing towards a lone figure 
+        hunched over a laptop at an outdoor table. It's a young woman, perhaps an undergraduate, engrossed in her work, oblivious to the predators watching her from the shadows.
+        "That one," Emerie murmurs, her voice devoid of emotion. "She's an ideal target. Isolated, preoccupied, and unlikely to be missed immediately. Your first hunt, childe. Choose your approach. Remember discretion above all."
+        
+        `},
+        
+      ],
+    },
+    {
+      heading: 'The Unsuspecting Student',
+      content: [
+        { type: 'image', src: 'src/pages/Chronicles/intro/assets/campusStudents.jpg'},
+        {type: 'text', value:
+        `The young woman hums softly to herself, illuminated by the glow of her laptop. She sips occasionally from a coffee cup, her fingers dancing across the keyboard. The scent of her living blood is a torment, a 
+        siren song that threatens to unravel what little control you've managed to cultivate. Emerie watches, silent and observant, allowing you to make the first move. You know you have to approach this subtly, as 
+        there are other students tonight. However the palpable excitement you feel cannot be understated. You think about how to approach this.
+        
+        `},
+        
+      ],
+    },
+    
+    
+  ],
+  
+  
+  actions: [
+    { label: 'Subtle Approach', eventId: 'subtle' },
+    { label: 'Social Approach', eventId: 'social' },
+    
+    
+    
+  ],
+  events: [
+    {
+      id: 'subtle',
+      title: 'The Subtle Approach',
+      content: `Wait until she is alone. Attempt to approach quietly, using the shadows and natural cover to get close without being noticed, then strike swiftly.
+      Use Outcome 1.
+      `
+    },
+    {
+      id: 'social',
+      title: 'The Social Approach',
+      content: `Try to engage the student in conversation, getting her to follow you somewhere discreet before moving in for the feed.
+      Use Outcome 2.
+      `
+    },
+    
+    
+  ],
+  choices: [
+      {
+        id: 'subtle',
+        label: 'Take a subtle approach',
+        description: 'Bide your time, then strike.',
+        action: 'goto', // or a custom handler
+        targetId: 'page8'
+      },
+      {
+        id: 'social',
+        label: 'Take a social approach',
+        description: 'Decide to approach her directly, and get her to follow you somewhere else.',
+        action: 'goto', // or a custom handler
+        targetId: 'page9'
+      },
+      {
+        id: 'return',
+        label: 'Go Back',
+        description: 'This does not sound right.',
+        action: 'goto', // or a custom handler
+        targetId: 'page4'
+      },
+      
+      
+  ],  
+},
+{
+  id: 'page8',
+  title: 'First Blood',
+  sections: [
+    {
+      heading: 'San Fernando University',
+      content: [
+        { type: 'image', src: 'src/pages/Chronicles/intro/assets/campusLawn.jpg'},
+        {type: 'text', value:
+        `You decide to combine stealth with power, stalking your prey like a true predator. You melt into the deeper shadows that cling to the edges of the quad, your movements unnaturally silent. Each footfall is 
+        soundless, each breath held, every one of your new senses tuned to the student. You perceive the subtle shift of the night breeze, the distant murmur of traffic, and most acutely, the rhythm of her heartbeat—a 
+        drumbeat of life calling to the void within you.
 
+        You move from tree to bush, becoming one with the night. The scent of her blood grows stronger, richer, each pulse a tantalizing invitation. The hunger intensifies, a cold fire in your gut threatening to erupt. 
+        It takes every ounce of restraint to wait until she gets up and begins walking. You follow her, sticking to the shadows. You are close now, just behind her, her back completely to you. This is the moment. The campus is quiet, the quad empty. No one around to see. The time to strike is now.
 
         `},
         
@@ -572,44 +677,191 @@ const chroniclePages = [
   
   
   actions: [
-    { label: 'Lost In The Pursuit Of Knowledge', eventId: 'introStudent' },
-    { label: 'Sought A Fleeting Moment Of Connection', eventId: 'introSeeker' },
+    { label: 'Strike Swiftly',
+      type: 'multiSkillCheck',
+      skillChecks: [
+        {
+        description: 'You peel yourself from the shadows and launch yourself forward, aiming to incapacitate and feed as quickly and cleanly as possible. (Dex + Stealth, Dif: 1)',
+        resultPass: `You move with blinding speed, seizing the student before she can even register your presence. 
+        Your fangs extend, and you bury them into her neck, feeling the exquisite warmth of her blood fill you. Use Outcome 1.
+        `,
+        resultFail: `Your movements, though fast, are not quite silent, or your aim is slightly off. 
+        The student lets out a startled yelp or struggles briefly before you can fully subdue her. This creates a risk of detection. Use Outcome 1.
+        `,
+        
+        }
+      ], 
+    },
+    
+    
+    
+  ],
+  events: [
+    
+    
+    
+    
+  ],
+  choices: [
+      {
+        id: 'subtle',
+        label: 'Savor your victory',
+        description: 'Your first hunt will always be the best.',
+        action: 'goto', // or a custom handler
+        targetId: 'page10'
+      },
+      
+      {
+        id: 'return',
+        label: 'Go Back',
+        description: 'This does not sound right.',
+        action: 'goto', // or a custom handler
+        targetId: 'page7'
+      },
+      
+      
+  ],  
+},
+{
+  id: 'page9',
+  title: 'First Blood',
+  sections: [
+    {
+      heading: 'San Fernando University',
+      content: [
+        { type: 'image', src: 'src/pages/Chronicles/intro/assets/campusLawn.jpg'},
+        {type: 'text', value:
+        `You opt for a social approach, deciding to engage the student in conversation before moving in for the feed. You take a deep, unnecessary breath, trying to compose yourself. Your blood runs cold as you 
+        approach, not from the chill of the night, but from the icy precision with which you must now manipulate a mortal. You conjure a polite smile, perhaps a casual question about her studies, and walk directly 
+        towards the table. The rhythmic beat of her heart grows louder with every step.
+
+        You clear your throat softly as you near her table as she finishes packing up. "Excuse me," you begin, your voice surprisingly steady. "I couldn't help but notice your screen. Are you working on a research paper? 
+        That topic looks incredibly complex." You offer a warm, reassuring smile, attempting to appear as just another curious student, hoping to draw her into conversation and away from any prying eyes.
+
+        `},
+        
+      ],
+    },
+    
+    
+    
+  ],
+  
+  
+  actions: [
+    { label: 'Try and Draw Her Away',
+      type: 'multiSkillCheck',
+      skillChecks: [
+        {
+        description: 'You attempt to engage in a conversation with her. (Charisma + Subterfuge or Charisma + Persuasion, Dif: 2)',
+        resultPass: `Your charm is disarming. The student looks up, a slight frown of concentration on her face melting into a polite smile. "Oh, hi! Yes, it's for my Medieval Lit class. It's truly a rabbit hole," 
+        she sighs, clearly receptive to the distraction. The conversation continues, and she doesn't even realize that she is following you into the shadows.
+        You move with blinding speed, seizing the student before she can even register your presence. 
+        Your fangs extend, and you bury them into her neck, feeling the exquisite warmth of her blood fill you. Use Outcome 1. 
+        `,
+        resultFail: `Your approach feels slightly off, perhaps a touch too intense or insincere. The student glances up, her eyes wary, and offers a terse, dismissive answer. 
+        "Just a paper," she mumbles, clearly uninterested in conversation. She walks off into the distance. Frustrated, you decide to pursue her and stick to the shadows.
+        You find your moment, and move with blinding speed, seizing the student before she can even register your presence. 
+        Your fangs extend, and you bury them into her neck, feeling the exquisite warmth of her blood fill you. Use Outcome 1.
+        `,
+        
+        }
+      ], 
+    },
+    
+    
+    
+  ],
+  events: [
+    
+    
+    
+    
+  ],
+  choices: [
+      {
+        id: 'social',
+        label: 'Savor your victory',
+        description: 'Your first hunt will always be the best.',
+        action: 'goto', // or a custom handler
+        targetId: 'page10'
+      },
+      
+      {
+        id: 'return',
+        label: 'Go Back',
+        description: 'This does not sound right.',
+        action: 'goto', // or a custom handler
+        targetId: 'page7'
+      },
+      
+      
+  ],  
+},
+{
+  id: 'page10',
+  title: 'The Aftermath',
+  sections: [
+    {
+      heading: 'San Fernando University',
+      content: [
+        { type: 'image', src: 'src/pages/Chronicles/intro/assets/campusLawn.jpg'},
+        {type: 'text', value:
+        `Regardless of how you achieved it, the taste is immediate, overwhelming, exquisitely satisfying. It rushes into the void within you, a warmth that spreads through your limbs, chasing away the cold ache of the 
+        Hunger. You drink, carefully, meticulously, drawing just enough to sate the primal scream without emptying her completely. A dizzying wave of euphoria, far more intense than any mortal pleasure, floods your 
+        senses before you gently withdraw. You lick the wound close exactly as you were told. She slumps slightly, a peaceful, almost sleepy expression on her face, completely unaware of the monstrous act that just occurred.
+        
+        You pull back, the lingering taste of copper and vitality on your tongue. The immediate, brutal need is gone, replaced by a deep, unsettling satisfaction. You pull the student to a chair at a nearby table, her head 
+        now resting on her arm, seemingly asleep. Emerie steps from the shadows, her presence a silent judgment. She walks over to the student, her movements swift and practiced. With a gentle touch to the 
+        student's temple, she murmurs a few low words you can't quite discern - a subtle application of Dominate to erase the memory, ensure compliance, or simply deepen the sleep. 
+        
+        She turns back to you, her expression still unreadable, but a faint nod, a subtle tilt of her head, speaks volumes. "Just in case. Overall, not bad." she states, her voice a low murmur that hints at approval. 
+        "Reasonably controlled. A good start, childe. The Masquerade remains unbroken. Now, let's return to the Chantry. There's more to discuss about... discretion." You follow her, your stride feeling stronger, more 
+        deliberate, than it has since your Embrace. The campus lights no longer seem so harsh; the shadows feel less like a threat and more like a welcome cloak. The primal horror of your first act is still there, a chilling 
+        undercurrent, but it's now mingled with the intoxicating knowledge of your power, and the grim satisfaction of a hunger sated. The annex building looms into view, its unassuming facade now representing not 
+        just a prison, but a sanctuary, a place where you can begin to comprehend the terrifying reality of your unlife. This is the beginning of your journey.
+        `},
+        
+      ],
+    },
+    
+    
+    
+  ],
+  
+  
+  actions: [
+    { label: 'End The Intro', eventId: 'endIntro' },
+    
     
     
   ],
   events: [
     {
-      id: 'introStudent',
-      title: 'The Dedicated Student',
-      content: `The library's hushed aisles were your sanctuary, or perhaps a dimly lit lab or classroom your domain. You were driven by an insatiable hunger for understanding, which lead you to
-      pore over advanced texts, seeking the answers whispered within. Perhaps you immersed yourself in complex formulae or algorithms, trying to unravel the cold, elegant truth of the universe.
-      Maybe you engaged in a late-night study group, pushing the boundaries of your intellect with fellow insomniacs. You are The Student. Use outcome 1.
+      id: 'endIntro',
+      title: 'Begin Your Journey',
+      content: `This is the end of the beginning. Use Outcome 1.
       `
     },
-    {
-      id: 'introSeeker',
-      title: 'The Seeker',
-      content: `The pulse of the night drew you, for many possible reasons. It could be you were chasing the fleeting high of a campus party, hoping to lose yourself in the crowd and the music.
-      Another possibility was meeting a clandestine contact, exchanging hushed words and secrets under the cover of darkness. 
-      Or perhaps you were simply wandering, drawn by the distant promise of companionship, or perhaps just the desire to not be alone. You are The Seeker. Use outcome 2.
-      `
-    },
+    
+    
     
   ],
   choices: [
       {
-        id: 'studentBound',
-        label: 'Fulfill your purpose',
-        description: 'You are supposed to be here, but not for the reason you think.',
+        id: 'endIntro',
+        label: 'End the Intro',
+        description: 'You look to new beginnings.',
         action: 'goto', // or a custom handler
-        targetId: 'page2'
+        targetId: 'page10'
       },
+      
       {
-        id: 'seekerAllured',
+        id: 'return',
         label: 'Go Back',
         description: 'This does not sound right.',
         action: 'goto', // or a custom handler
-        targetId: 'page4'
+        targetId: 'page7'
       },
       
       
