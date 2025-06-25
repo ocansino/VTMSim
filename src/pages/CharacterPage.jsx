@@ -1,3 +1,4 @@
+//src/pages/CharacterPage.jsx
 import React, { useState, useEffect } from 'react';
 import CharacterInfo from '../components/CharacterInfo';
 import AttributesGrid from '../components/AttributesGrid';
